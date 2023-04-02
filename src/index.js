@@ -1,7 +1,7 @@
 import fs from 'fs';
 import path from 'path';
-import parse from './parser.js';
-import getDifferences from './getDiff.js';
+import parse from './parsers.js';
+import getDifferences from './buildDiff.js';
 import formatChoice from './formatters/index.js';
 
 const getContentParse = (filepath) => {
