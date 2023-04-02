@@ -1,38 +1,30 @@
 import _ from 'lodash';
-import parser from './parser.js';
 
-const getDiff = (filePath1, filePath2) => {
-    const obj1 = parser(filePath1);
-    const obj2 = parser(filePath2);
-    const keysOfObj1 = _.keys(obj1);
-    const keysOfObj2 = _.keys(obj2);
-    const concatKeys = keysOfObj1.concat(keysOfObj2);
-    const uniqKeys = _.uniq(concatKeys);
-    const sortedUniqKeys = uniqKeys.sort();
+const getDifferences = (data1, data2) => {
+  const unitedKeys = _.sortBy(_.union(Object.keys(data1), Object.keys(data2)));
 
-    const resultPush = sortedUniqKeys.reduce((acc, key) => {
-        // если в первом объекте есть ключ, во втором нет
-        if (_.has(obj1, key) && !_.has(obj2, key)) acc.push(`- ${key}: ${obj1[key]}`);
-        // если во втором объекте есть ключ, в первом нет
-        if (!_.has(obj1, key) && _.has(obj2, key)) acc.push(`+ ${key}: ${obj2[key]}`);
-        // если ключ есть в обоих объектах
-        if (_.has(obj1, key) && _.has(obj2, key)) {
-          // если значения совпадают
-          if (_.isEqual(obj1[key], obj2[key])) acc.push(`  ${key}: ${obj1[key]}`);
-          // если значения разные
-          else {
-            acc.push(`- ${key}: ${obj1[key]}`);
-            acc.push(`+ ${key}: ${obj2[key]}`);
-          }
-        }
-        return acc;
-      }, []);
-    
-      const string = resultPush.join('\n  ');
-    
-      const result = `{ \n  ${string}\n}`;
-    
-      return result;
-}
+  const result = unitedKeys.map((key) => {
+    if (typeof data1[key] === 'object' && typeof data2[key] === 'object') {
+      return { key, children: getDifferences(data1[key], data2[key]), type: 'nested' };
+    }
+    if (!_.has(data1, key)) {
+      return { key, value2: data2[key], type: 'added' };
+    }
+    if (!_.has(data2, key)) {
+      return { key, value1: data1[key], type: 'deleted' };
+    }
+    if (data1[key] !== data2[key]) {
+      return {
+        key,
+        value1: data1[key],
+        value2: data2[key],
+        type: 'changed',
+      };
+    }
+    return { key, value1: data1[key], type: 'unchanged' };
+  });
 
-export default getDiff;
+  return result;
+};
+
+export default getDifferences;

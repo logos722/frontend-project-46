@@ -1,24 +1,58 @@
-import { test, expect, describe} from '@jest/globals';
+import fs from 'fs';
+import path from 'path';
 import { fileURLToPath } from 'url';
-import path, { dirname } from 'path';
-import { readFileSync } from 'fs';
 import genDiff from '../src/index.js';
 
 const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
+const __dirname = path.dirname(__filename);
 
 const getFixturePath = (filename) => path.join(__dirname, '..', '__fixtures__', filename);
-const readFixture = (filename) => readFileSync(getFixturePath(filename), 'utf-8');
+const readFile = (filename) => fs.readFileSync(getFixturePath(filename), 'utf-8');
 
-const formats = ['json', 'yaml', 'yml'];
+const json1 = getFixturePath('file1.json');
+const json2 = getFixturePath('file2.json');
+const yaml1 = getFixturePath('file1.yaml');
+const yaml2 = getFixturePath('file2.yaml');
 
-describe('genDiff normal working case', () => {
-    test.each(formats)('genDiff should work with %p', (format) => {
-        const filepath1 = getFixturePath(`file1.${format}`);
-    const filepath2 = getFixturePath(`file2.${format}`);
-    expect(genDiff(filepath1, filepath2)).toEqual(readFixture('result-stylish.txt'));
-    expect(genDiff(filepath1, filepath2, 'stylish')).toEqual(readFixture('result-stylish.txt'));
-    expect(genDiff(filepath1, filepath2, 'plain')).toEqual(readFixture('result-plain.txt'));
-    expect(genDiff(filepath1, filepath2, 'json')).toEqual(readFixture('result-json.json'));
-    })
-})
+const formatCases = [
+  {
+    format: undefined,
+    expectedFile: 'expectedStylish.txt',
+  },
+  {
+    format: 'stylish',
+    expectedFile: 'expectedStylish.txt',
+  },
+  {
+    format: 'plain',
+    expectedFile: 'expectedPlain.txt',
+  },
+  {
+    format: 'json',
+    expectedFile: 'expectedJson.txt',
+  },
+];
+
+describe.each(formatCases)('Testing function gendiff', ({ format, expectedFile }) => {
+  const expected = readFile(expectedFile);
+
+  test(`formatter ${format}, json-json files`, () => {
+    const actual = genDiff(json1, json2, format);
+    expect(actual).toBe(expected);
+  });
+
+  test(`formatter ${format}, json-yml files`, () => {
+    const actual = genDiff(json1, yaml2, format);
+    expect(actual).toBe(expected);
+  });
+
+  test(`formatter ${format}, yml-yml files`, () => {
+    const actual = genDiff(yaml1, yaml2, format);
+    expect(actual).toBe(expected);
+  });
+
+  test(`formatter ${format}, yml-json files`, () => {
+    const actual = genDiff(yaml1, json2, format);
+    expect(actual).toBe(expected);
+  });
+});

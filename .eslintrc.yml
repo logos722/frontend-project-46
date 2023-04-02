@@ -1,9 +1,38 @@
+Skip to content
+Back to GitHub Sign up
+aleksusergit
+/
+frontend-project-46
+Public
+Code
+Issues
+Pull requests
+Actions
+Projects
+Security
+Insights
+frontend-project-46/.eslintrc.yml
+@aleksusergit
+aleksusergit Step-4. Added linter and test
+Latest commit 8a1e138 on Dec 6, 2022
+ History
+ 1 contributor
+16 lines (16 sloc)  303 Bytes
+
 env:
-  browser: true
   es2021: true
+  node: true
+  jest: true
 extends: airbnb-base
 overrides: []
 parserOptions:
   ecmaVersion: latest
   sourceType: module
-rules: {}
+rules:
+  no-console: 0
+  import/extensions:
+    - error
+    - ignorePackages
+    - js: always
+  no-underscore-dangle: [2, { 'allow': ['__filename', '__dirname'] }]
+  no-unused-expressions: 0
