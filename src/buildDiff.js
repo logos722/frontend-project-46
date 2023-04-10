@@ -4,7 +4,7 @@ const getDifferences = (data1, data2) => {
   const unitedKeys = _.sortBy(_.union(Object.keys(data1), Object.keys(data2)));
 
   const result = unitedKeys.map((key) => {
-    if (typeof data1[key] === 'object' && typeof data2[key] === 'object') {
+    if (_.isObject(data1[key]) && _.isObject(data2[key])) {
       return { key, children: getDifferences(data1[key], data2[key]), type: 'nested' };
     }
     if (!_.has(data1, key)) {

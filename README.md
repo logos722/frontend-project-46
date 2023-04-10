@@ -1,4 +1,4 @@
-# Вычислитель отличий
+# Difference generator
 
 ### Hexlet tests and linter status:
 [![Actions Status](https://github.com/logos722/frontend-project-46/workflows/hexlet-check/badge.svg)](https://github.com/logos722/frontend-project-46/actions)
@@ -7,54 +7,54 @@
 
 [![Maintainability](https://api.codeclimate.com/v1/badges/bfc652feacb865b7d965/maintainability)](https://codeclimate.com/github/logos722/frontend-project-46/maintainability)
 
-## Описание
+## Description
 
-Проект "Вычислитель отличий" – это программа, определяющая разницу между двумя структурами данных. Это популярная задача, для решения которой существует множество онлайн сервисов, например, http://www.jsondiff.com/.
+The Difference generator project is a program that determines the difference between two data structures. This is a popular task, for which there are many online services, for example, http://www.jsondiff.com/.
 
-Возможности утилиты:
+Utility features:
 
-- Поддержка разных входных форматов: yml, yaml, json
+- Support for different input formats: yml, yaml, json
 
-- Генерация отчета в разных видах
+- Report generation in different views
 
-## Требования
+## Requirements
 
-- Git клиент
-- Node.js 18 или выше
-- Make
+- Git client
+- Node.js 18 or higher
+-Make
 
-## Установка
+## Installation
 
-- Клонировать проект
+- Clone project
 
 ```
 $ git clone
 ```
 
-- Установить пакет (может потребоваться sudo)
+- Install package (may require sudo)
 
 ```
 $ make setup
 ```
 
-## Пример использования
+## Usage example
 
-1)  Сравнение файлов (.json)
+1) Comparison of files (.json)
 
-https://asciinema.org/a/7HXOsehpZNE1jr4L87POq11YZ
+[![asciicast](https://asciinema.org/a/TQAOnYELm08kgUHKnJ4p0k5Yq.svg)](https://asciinema.org/a/TQAOnYELm08kgUHKnJ4p0k5Yq)
 
-2) Сравнение файлов (.yml, .yaml)
+2) Compare files (.yml, .yaml)
 
-https://asciinema.org/a/aDJ5p0JMx6Zwj63zXWvh8U1h1
+[![asciicast](https://asciinema.org/a/05iQl0ya5JeY1bZIVWSj1Msyp.svg)](https://asciinema.org/a/05iQl0ya5JeY1bZIVWSj1Msyp)
 
-3) Сравнение файлов (.yml, .yaml, .json) с вложенной структурой в формате stylish
+3) Comparison of files (.yml, .yaml, .json) with nested structure in stylish format
 
-https://asciinema.org/a/QnEGRGhHZfeyAoH4HUk3gikqQ
+[![asciicast](https://asciinema.org/a/BKYGAEvQpo6VkNpkd85PaBc8z.svg)](https://asciinema.org/a/BKYGAEvQpo6VkNpkd85PaBc8z)
 
-4) Сравнение файлов (.yml, .yaml, .json) с вложенной структурой в формате plain text
+4) Comparison of files (.yml, .yaml, .json) with nested structure in plain text format
 
-https://asciinema.org/a/xVqQ8OrLvN9lTdjNtBUTJfOJm
+[![asciicast](https://asciinema.org/a/Fx1TVzxQlqM27puNMyQmD3OmK.svg)](https://asciinema.org/a/Fx1TVzxQlqM27puNMyQmD3OmK)
 
-5) Сравнение файлов (.yml, .yaml, .json) с вложенной структурой в формате json
+5) Compare files (.yml, .yaml, .json) with nested structure in json format
 
-https://asciinema.org/a/YPtFgk7j4eNRkRRTBmId77Wsq
+[![asciicast](https://asciinema.org/a/5mCUQuTnxgNACPBaYwn7SH470.svg)](https://asciinema.org/a/5mCUQuTnxgNACPBaYwn7SH470)
