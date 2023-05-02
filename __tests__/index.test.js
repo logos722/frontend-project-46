@@ -11,7 +11,7 @@ const readFile = (filename) => fs.readFileSync(getFixturePath(filename), 'utf-8'
 
 const extensions = ['yml', 'json'];
 
-test.each(extensions)('test gendiff with extension', (extension) => {
+test.each(extensions)('gendiff with extension', (extension) => {
   const fileBefore = getFixturePath(`file1.${extension}`);
   const fileAfter = getFixturePath(`file2.${extension}`);
   const expectedStylishResult = readFile('expectedStylish.txt');
